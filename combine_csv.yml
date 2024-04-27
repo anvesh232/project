@@ -1,0 +1,45 @@
+name: Combine Chunks
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  combine_chunks:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        
+      - name: Combine Chunks
+        run: |
+          python - <<EOF
+          import pandas as pd
+          
+          # List of chunk files
+          chunk_files = [
+              "chunk_1.csv",
+              "chunk_2.csv",
+              "chunk_3.csv",
+              "chunk_4.csv",
+              "chunk_5.csv",
+              "chunk_6.csv"
+          ]
+          
+          # Read and concatenate chunks
+          chunks = [pd.read_csv(file) for file in chunk_files]
+          combined_data = pd.concat(chunks)
+          
+          # Write combined data to CSV
+          combined_data.to_csv("combined_data.csv", index=False)
+          EOF
+          
+      - name: Commit Combined Data
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+          git add combined_data.csv
+          git commit -m "Combine chunks into one CSV file"
+          git push
