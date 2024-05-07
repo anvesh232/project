@@ -683,8 +683,6 @@ df.drop(['Metropolitan', 'Coordinates'], axis=1, inplace=True)
 
 # Now df contains latitude and longitude values based on the CBSA code
 
-pip install folium
-
 import streamlit as st
 import folium
 from folium.plugins import MarkerCluster
