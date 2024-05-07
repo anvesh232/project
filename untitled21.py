@@ -683,13 +683,14 @@ df.drop(['Metropolitan', 'Coordinates'], axis=1, inplace=True)
 
 # Now df contains latitude and longitude values based on the CBSA code
 
+df.columns
+
 import streamlit as st
-from streamlit_folium import folium_static
-import folium
 import pandas as pd
 import ast
 import matplotlib.pyplot as plt
 from matplotlib.ticker import ScalarFormatter
+import streamlit_leaflet as leaflet
 
 # Sidebar for year selection
 selected_year = st.sidebar.selectbox("Select Year", df['YYYY'].unique())
@@ -705,20 +706,18 @@ st.title("US Map Dashboard")
 
 # Display the US map
 st.subheader("US Map")
-# Create a Folium map
+
+# Create a Streamlit Leaflet map
 if not filtered_df.empty:
-    m = folium.Map(location=[filtered_df['Latitude'].mean(), filtered_df['Longitude'].mean()], zoom_start=4)
-    marker_cluster = folium.plugins.MarkerCluster().add_to(m)
+    # Create a Streamlit Leaflet map
+    m = leaflet.Map(zoom=4, center=[filtered_df['Latitude'].mean(), filtered_df['Longitude'].mean()])
 
     # Plot CBSA regions on the map using latitude and longitude coordinates
     for idx, row in filtered_df.iterrows():
-        folium.Marker(
-            location=[row['Latitude'], row['Longitude']],
-            popup=row['CBSA'],
-        ).add_to(marker_cluster)
+        leaflet.marker(location=[row['Latitude'], row['Longitude']], draggable=False).add_to(m)
 
-    # Display the map using streamlit-folium
-    folium_static(m)
+    # Display the map
+    st.leaflet_static(m)
 else:
     st.write("No data available for the selected year.")
 
