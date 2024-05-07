@@ -684,11 +684,12 @@ df.drop(['Metropolitan', 'Coordinates'], axis=1, inplace=True)
 # Now df contains latitude and longitude values based on the CBSA code
 
 import streamlit as st
+from streamlit_folium import folium_static
 import folium
-from folium.plugins import MarkerCluster
+import pandas as pd
+import ast
 import matplotlib.pyplot as plt
 from matplotlib.ticker import ScalarFormatter
-import ast
 
 # Sidebar for year selection
 selected_year = st.sidebar.selectbox("Select Year", df['YYYY'].unique())
@@ -707,7 +708,7 @@ st.subheader("US Map")
 # Create a Folium map
 if not filtered_df.empty:
     m = folium.Map(location=[filtered_df['Latitude'].mean(), filtered_df['Longitude'].mean()], zoom_start=4)
-    marker_cluster = MarkerCluster().add_to(m)
+    marker_cluster = folium.plugins.MarkerCluster().add_to(m)
 
     # Plot CBSA regions on the map using latitude and longitude coordinates
     for idx, row in filtered_df.iterrows():
@@ -716,8 +717,8 @@ if not filtered_df.empty:
             popup=row['CBSA'],
         ).add_to(marker_cluster)
 
-    # Display the map
-    st.markdown(folium.Figure().add_child(m)._repr_html_(), unsafe_allow_html=True)
+    # Display the map using streamlit-folium
+    folium_static(m)
 else:
     st.write("No data available for the selected year.")
 
@@ -729,7 +730,6 @@ total_counts = filtered_df['HEFAMINC_counts'].apply(ast.literal_eval).apply(pd.S
 
 # Sort the counts in descending order
 total_counts_sorted = total_counts.sort_values(ascending=False)
-
 
 # Plot the aggregated counts
 plt.figure(figsize=(10, 6))
