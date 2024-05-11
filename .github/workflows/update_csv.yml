@@ -1,11 +1,11 @@
-name: Monthly CSV Update
+name: Monthly CSV Update and Stremlit Visualization
 
 on:
   schedule:
     - cron: '0 0 1 * *'  # Runs at 12:00 AM on the first day of every month
 
 jobs:
-  update_csv:
+  update_csv_and_visualize:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,9 +18,16 @@ jobs:
         python-version: '3.x'
 
     - name: Install dependencies
-      run: pip install -r requirements.txt
+      run: |
+        pip install -r requirements.txt
+        pip install streamlit
 
     - name: Run automation script
       run: python automation.py
+      env:
+        GITHUB_TOKEN: ${{ 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 }}
+
+    - name: Run Stremlit visualization script
+      run: streamlit run stremlit_vis.py
       env:
         GITHUB_TOKEN: ${{ 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 }}
