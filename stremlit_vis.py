@@ -186,7 +186,7 @@ st.plotly_chart(fig)
 selected_cbsa = st.sidebar.selectbox('Select CBSA', sorted(filtered_df['CBSA'].unique()))
 
 subset = filtered_df[filtered_df['CBSA'] == selected_cbsa]
-
+#this code is for the order of the graphs..so there will be 3 rows and 2 columns of graphs
 if len(subset) > 0:
     fig, axes = plt.subplots(3, 2, figsize=(15, 15))
     plot_functions = [plot_hefaminc_counts, plot_hrnumhou_counts, plot_prcow1_counts, plot_pemaritl_counts, plot_peeduca_counts, plot_pesex_counts]
