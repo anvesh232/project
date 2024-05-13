@@ -13,7 +13,7 @@ df=pd.read_csv(url)
 df.head(2)
 #The following are corresponding codes to their meaning of all columns
 hefaminc_dict = {
-    "16": "150,000 $or More","15": "100,000$ To $149,999$","14": "75,000$ To 99,999$","13": "60,000$ To 74,999$","12": "50,000$ To 59,999$","11": "40,000$ To 49,999$","10": "35,000$ To 39,999$","9": "30,000$ To 34,999$","8": "25,000$ To 29,999$","7": "20,000$ To 24,999$","6": "15,000$ To 19,999$","5": "12,500$ To 14,999$","4": "10,000$ To 12,499$","3": "7,500$ To 9,999$","2": "5,000$ To 7,499$","1": "Less Than 5,000$"
+    "16": "150,000 or More","15": "100,000 To 149,999","14": "75,000 To 99,999","13": "60,000 To 74,999","12": "50,000 To 59,999","11": "40,000 To 49,999","10": "35,000 To 39,999","9": "30,000 To 34,999","8": "25,000 To 29,999","7": "20,000 To 24,999","6": "15,000 To 19,999","5": "12,500 To 14,999","4": "10,000 To 12,499","3": "7,500 To 9,999","2": "5,000 To 7,499","1": "Less Than $5,000"
 }
 prcow1_dict = {"-1": "Met No Conditions To Assign","4": "Private ","1": "Federal government","6": "Without pay","2": "State government","5": "Self-Employed","3": "Local government"
 }
@@ -79,7 +79,7 @@ def plot_hefaminc_counts(subset, cbsa, year, ax):
 
     ax.barh(income_categories, counts)
     ax.set_xlabel('Count')
-    ax.set_ylabel('Income Category')
+    ax.set_ylabel('Income Category(in $')
     ax.set_title(f'HEFAMINC Counts for CBSA {cbsa} - Year {year}')
 
 # Function to plot HRNUMHOU counts
