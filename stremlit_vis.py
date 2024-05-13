@@ -79,7 +79,7 @@ def plot_hefaminc_counts(subset, cbsa, year, ax):
 
     ax.barh(income_categories, counts)
     ax.set_xlabel('Count')
-    ax.set_ylabel('Income Category(in $')
+    ax.set_ylabel('Income Category(in $)')
     ax.set_title(f'HEFAMINC Counts for CBSA {cbsa} - Year {year}')
 
 # Function to plot HRNUMHOU counts
