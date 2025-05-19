@@ -1,4 +1,5 @@
 # project
+Dashboard link: https://project-92e2vs9cfj5qub8zy2skmb.streamlit.app/
 Overview
 This project has been an enlightening journey, spanning a mere three weeks, yet packed with invaluable learning experiences. Initially daunting, I found myself staring at the CPS (Current Population Survey) data variables for days, overwhelmed and unsure where to begin. However, as I gradually delved into understanding each variable's description, the fog began to lift, and I started to experiment with the API.
 
